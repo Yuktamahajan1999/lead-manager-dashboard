@@ -1,6 +1,11 @@
 🚀 LeadFlow CRM - Lead Management Dashboard
 A modern, high-performance Lead Management System designed to handle over 1,000 leads efficiently. This project features advanced filtering, debounced search, and real-time analytics.
 
+### Login Credentials:
+To access the dashboard, please use the following demo credentials:
+- **Email:** `admin@crm.com`
+- **Password:** `admin123`
+
 ✨ Key Features
 Dynamic Analytics Cards: The top of the dashboard displays live counts for Total, Converted, and Lost leads.
 
@@ -33,3 +38,6 @@ cd frontend
 npm install
 npm run dev    # Runs on http://localhost:5173
 
+## 🔗 Live Demo Links
+- **Frontend (Vercel):** [https://lead-manager-dashboard.vercel.app](https://lead-manager-dashboard.vercel.app)
+- **Backend API (Render):** [https://lead-manager-dashboard.onrender.com](https://lead-manager-dashboard.onrender.com)

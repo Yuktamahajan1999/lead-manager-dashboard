@@ -88,6 +88,7 @@ const Dashboard = () => {
               <option value="">All Status</option>
               <option value="New">New</option>
               <option value="Converted">Converted</option>
+              <option value="Contacted">Contacted</option>
               <option value="Lost">Lost</option>
             </select>
           </div>

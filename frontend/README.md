@@ -33,15 +33,3 @@ cd frontend
 npm install
 npm run dev    # Runs on http://localhost:5173
 
-📸 Screenshots
-
-## 📸 Screenshots
-
-### 🔯 Dashboard Overview
-![Dashboard Overview](./frontend/public/Dashboard.png)
-
-### 🔯 Filtering (New Status)
-![Filtering](./frontend/public/Filter.png)
-
-### 🔯 Empty State (Search)
-![Empty State](./frontend/public/EmptyState.png)

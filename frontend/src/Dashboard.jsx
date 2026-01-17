@@ -48,8 +48,6 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex font-sans">
-      {/* Sidebar aur baki UI code same rahega... */}
-      {/* ... */}
       <aside className="w-64 bg-slate-900 text-white p-6 hidden md:block shadow-xl">
         <h2 className="text-2xl font-bold mb-10 flex items-center gap-3 text-blue-400">
           <LayoutDashboard size={28} /> LeadCRM
@@ -93,14 +91,14 @@ const Dashboard = () => {
           </div>
         </header>
 
-        {/* Analytics Cards - Ab live stats dikhayenge */}
+        {/* Analytics Cards  */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <StatCard title="Total Leads" value={stats.total} icon={<Users />} bgColor="bg-blue-50" textColor="text-blue-600" />
           <StatCard title="Converted" value={stats.converted} icon={<CheckCircle />} bgColor="bg-emerald-50" textColor="text-emerald-600" />
           <StatCard title="Lost Leads" value={stats.lost} icon={<XCircle />} bgColor="bg-rose-50" textColor="text-rose-600" />
         </div>
 
-        {/* Table & Pagination logic same rahega... */}
+        {/* Table & Pagination */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-32 bg-white rounded-3xl border border-dashed border-slate-300">
             <Loader2 className="animate-spin text-blue-500 mb-4" size={40} />

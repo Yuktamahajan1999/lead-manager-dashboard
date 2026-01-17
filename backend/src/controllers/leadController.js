@@ -15,9 +15,8 @@ export const getLeads = async (req, res) => {
       order = "desc",
     } = req.query;
 
-    // 🔍 Search query
+    // 🔍 Search query logic
     const query = {};
-
     if (search) {
       query.$or = [
         { name: { $regex: search, $options: "i" } },
@@ -30,16 +29,19 @@ export const getLeads = async (req, res) => {
       query.status = status;
     }
 
-    // 🔢 Pagination logic
+    // 🔢 Pagination & Sorting
     const skip = (page - 1) * limit;
-
-    // 🔃 Sorting logic
     const sortOrder = order === "asc" ? 1 : -1;
 
-    // 📊 Total count
-    const total = await Lead.countDocuments(query);
+    // 📊 Calculations for Dashboard Cards
+    const totalLeads = await Lead.countDocuments(); 
+    const convertedCount = await Lead.countDocuments({ status: "Converted" });
+    const lostCount = await Lead.countDocuments({ status: "Lost" });
 
-    // 📥 Fetch data
+    // 📊 Total count for Table Pagination (Filtered)
+    const totalFiltered = await Lead.countDocuments(query);
+
+    // 📥 Fetch Table Data
     const leads = await Lead.find(query)
       .sort({ [sortBy]: sortOrder })
       .skip(skip)
@@ -47,10 +49,13 @@ export const getLeads = async (req, res) => {
 
     res.status(200).json({
       success: true,
-      total,
-      page: Number(page),
-      totalPages: Math.ceil(total / limit),
       data: leads,
+      total: totalFiltered,
+      totalLeads,         
+      convertedCount,      
+      lostCount,            
+      page: Number(page),
+      totalPages: Math.ceil(totalFiltered / limit),
     });
   } catch (error) {
     console.error("Error fetching leads:", error.message);
@@ -106,3 +111,5 @@ export const getAnalytics = async (req, res) => {
     res.status(500).json({ success: false, message: "Server Error" });
   }
 };
+
+

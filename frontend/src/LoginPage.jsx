@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import axios from 'axios';
+import API from './api'; 
 import { useNavigate } from 'react-router-dom';
 import { Lock, Mail } from 'lucide-react';
 
@@ -12,13 +12,12 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // Backend URL check kar lena (Port 3000 ya 5000 jo bhi tune set kiya hai)
-      const res = await axios.post('http://localhost:3000/api/auth/login', { email, password });
+      const res = await API.post('/auth/login', { email, password });
 
       localStorage.setItem('token', res.data.token);
       localStorage.setItem('user', JSON.stringify(res.data.user));
 
-      navigate('/dashboard'); // Login ke baad Dashboard par bhej do
+      navigate('/dashboard'); 
     } catch (err) {
       setError(err.response?.data?.message || 'Invalid Credentials');
     }
@@ -76,8 +75,9 @@ const LoginPage = () => {
             Sign In
           </button>
         </form>
+        
         <p className="mt-8 text-center text-sm text-slate-500">
-          Demo: admin@test.com / 123456
+          Demo: admin@example.com / password123
         </p>
       </div>
     </div>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import API from './axios'; 
+import API from './api'; 
 import LeadsTable from './LeadsTable';
 import { LayoutDashboard, Users, CheckCircle, XCircle, Search, Loader2 } from 'lucide-react';
 
@@ -10,12 +10,12 @@ const Dashboard = () => {
   const [statusFilter, setStatusFilter] = useState('');
   const [pagination, setPagination] = useState({ page: 1, totalPages: 1 });
   
-  // Dynamic Stats State
   const [stats, setStats] = useState({ total: 0, converted: 0, lost: 0 });
 
   const fetchLeads = async (page = 1) => {
     try {
       setLoading(true);
+      
       const response = await API.get('/leads', {
         params: { page, limit: 10, search, status: statusFilter }
       });
@@ -27,9 +27,9 @@ const Dashboard = () => {
       });
       
       setStats({
-        total: response.data.totalLeads || 1000,
-        converted: response.data.convertedCount || 342,
-        lost: response.data.lostCount || 128
+        total: response.data.totalLeads || 0,
+        converted: response.data.convertedCount || 0,
+        lost: response.data.lostCount || 0
       });
     } catch (err) {
       console.error("Fetch error:", err);
@@ -38,7 +38,6 @@ const Dashboard = () => {
     }
   };
 
-  // Debounced Search Logic: 500ms wait karega typing rukne ka
   useEffect(() => {
     const delayDebounceFn = setTimeout(() => {
       fetchLeads(1);
@@ -49,7 +48,8 @@ const Dashboard = () => {
 
   return (
     <div className="min-h-screen bg-slate-50 flex font-sans">
-      {/* Sidebar */}
+      {/* Sidebar aur baki UI code same rahega... */}
+      {/* ... */}
       <aside className="w-64 bg-slate-900 text-white p-6 hidden md:block shadow-xl">
         <h2 className="text-2xl font-bold mb-10 flex items-center gap-3 text-blue-400">
           <LayoutDashboard size={28} /> LeadCRM
@@ -61,7 +61,6 @@ const Dashboard = () => {
         </nav>
       </aside>
 
-      {/* Main Content */}
       <main className="flex-1 p-6 lg:p-10 overflow-y-auto">
         <header className="flex flex-col lg:flex-row lg:items-center justify-between mb-10 gap-6">
           <div>
@@ -94,14 +93,14 @@ const Dashboard = () => {
           </div>
         </header>
 
-        {/* Analytics Cards */}
+        {/* Analytics Cards - Ab live stats dikhayenge */}
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-12">
           <StatCard title="Total Leads" value={stats.total} icon={<Users />} bgColor="bg-blue-50" textColor="text-blue-600" />
           <StatCard title="Converted" value={stats.converted} icon={<CheckCircle />} bgColor="bg-emerald-50" textColor="text-emerald-600" />
           <StatCard title="Lost Leads" value={stats.lost} icon={<XCircle />} bgColor="bg-rose-50" textColor="text-rose-600" />
         </div>
 
-        {/* Table Loading State */}
+        {/* Table & Pagination logic same rahega... */}
         {loading ? (
           <div className="flex flex-col items-center justify-center py-32 bg-white rounded-3xl border border-dashed border-slate-300">
             <Loader2 className="animate-spin text-blue-500 mb-4" size={40} />
@@ -121,7 +120,6 @@ const Dashboard = () => {
   );
 };
 
-// Helper Component for Cards
 const StatCard = ({ title, value, icon, bgColor, textColor }) => (
   <div className="bg-white p-7 rounded-3xl shadow-sm border border-slate-100 hover:shadow-md transition-shadow flex items-center gap-5">
     <div className={`p-4 ${bgColor} ${textColor} rounded-2xl`}>{icon}</div>
